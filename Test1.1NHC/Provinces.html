@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Province</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        /* Background Stretching Across and Centered */
+        .header-background {
+            position: absolute;
+            top: 0;
+            left: 0; /* Start the background at the top-left */
+            width: 100%; /* Stretch background across the screen */
+            height: 100px; /* Height for the background section */
+            background: linear-gradient(45deg, #6a11cb, #2575fc); /* Gradient background */
+            border-radius: 0 0 10px 10px; /* Rounded corners at the bottom */
+            z-index: 1; /* Keep the background behind content */
+        }
+
+        /* Header with Logo and Region Text */
+        .header-container {
+            position: absolute;
+            top: 10px; /* Position it at the top-left corner */
+            left: 20px; /* Adds space from the left */
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Adds space between the logo and region text */
+            z-index: 2; /* Ensure it's above the background */
+        }
+
+        .header-container img {
+            width: 80px; /* Logo size */
+            height: auto;
+        }
+
+        .region-text {
+            font-size: 1.8em; /* Slightly larger font size */
+            color: #fff; /* White text color */
+            font-weight: bold;
+        }
+
+        /* Container for the Select Your Province (Moved to lower-left corner) */
+        .province-container {
+            position: absolute;
+            bottom: 60px; /* Move container a bit higher */
+            left: 20px; /* Align to the left */
+            width: 280px; /* Increased width */
+            padding: 20px; /* Increased padding */
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .province-container img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 1.8em; /* Increased font size */
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.1em; /* Slightly larger font size */
+            margin-bottom: 15px;
+        }
+
+        /* Smaller Province Button */
+        .province-button {
+            display: inline-block;
+            margin: 15px 0;
+            padding: 12px 25px; /* Larger padding */
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2em; /* Slightly larger font size */
+            transition: background-color 0.3s ease;
+        }
+
+        .province-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer Styling */
+        footer {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #777;
+            width: 100%;
+        }
+
+        /* About and Contact Button Styling */
+        .extra-buttons {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .extra-buttons a {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .extra-buttons a:hover {
+            background: linear-gradient(45deg, #2575fc, #6a11cb);
+            transform: translateY(-5px);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Background for Header Stretching Across -->
+    <div class="header-background"></div>
+
+    <!-- Header with Logo and Region Text (Moved to top-left corner) -->
+    <div class="header-container">
+        <!-- Logo -->
+        <img src="1000029004.jpg" alt="Logo"> <!-- Replace with your actual logo -->
+
+        <!-- Region Text -->
+        <div class="region-text">
+            Southern Region
+        </div>
+    </div>
+
+    <!-- Select Your Province Container (Moved to lower-left corner) -->
+    <div class="province-container">
+        <!-- Image Above the Province Section -->
+        <img src="NCD.jpg" alt="NHC Image">
+
+        <!-- Text Content -->
+        <h1>National Capital District</h1>
+        <p>Click the button to view what Services you can receive in this province.</p>
+
+        <!-- Province Button -->
+        <!-- Updated link to "services.html" -->
+        <a href="services Html.html" class="province-button">
+            View Services
+        </a>
+    </div>
+
+    <!-- Extra Buttons for About and Contact -->
+    <div class="extra-buttons">
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 NHC Portal. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

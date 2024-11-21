@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retrieve Receipt</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 500px;
+      margin: 50px auto;
+      background: #ffffff;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+    h1 {
+      text-align: center;
+      color: #333333;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    label {
+      font-weight: bold;
+      color: #555555;
+    }
+    input, select, button {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #777777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Retrieve Your Receipt</h1>
+    <form action="/submit-receipt-request" method="POST">
+      <label for="transaction-id">Transaction ID:</label>
+      <input type="text" id="transaction-id" name="transaction_id" placeholder="Enter your transaction ID" required>
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+
+      <label for="date">Transaction Date:</label>
+      <input type="date" id="date" name="transaction_date" required>
+
+      <button type="submit">Retrieve Receipt</button>
+    </form>
+    <div class="footer">
+      <p>Need help? <a href="/contact-us">Contact support</a>.</p>
+    </div>
+  </div>
+</body>
+</html>

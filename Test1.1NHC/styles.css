@@ -1,0 +1,182 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #ff6b31 0%, #2575fc 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+}
+
+/* Container for the portal */
+.portal-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    padding: 30px;
+    text-align: center;
+}
+
+/* Header Section */
+.portal-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.portal-header p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+/* Form Styles */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+input, select {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+button {
+    background-color: #2575fc;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #6a11cb;
+}
+
+.error-message {
+    margin-top: 10px;
+    color: red;
+    font-size: 0.9rem;
+}
+
+/* Roles Section */
+.role-info {
+    margin-top: 30px;
+}
+
+.role-card {
+    background-color: #f4f4f9;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.role-card h4 {
+    color: #2575fc;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.role-card p {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .portal-container {
+        padding: 20px;
+        width: 90%;
+    }
+
+    .role-card {
+        padding: 12px;
+    }
+}
+        /* Info Section with Complex Animation */
+        .info-section {
+            background: #d44242;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .info-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            animation: complexAnimation 3s ease-in-out infinite alternate;
+        }
+        .info-section p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: complexAnimation 3s ease-in-out 0.5s forwards;
+        }
+        .info-section a {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+            animation: hoverEffect 5s linear infinite;
+        }
+        .info-section a:hover {
+            text-decoration: underline;
+        }
+
+        /* Complex Animation Keyframes */
+        @keyframes complexAnimation {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) rotate(0deg);
+                color: #333;
+            }
+            25% {
+                opacity: 0.5;
+                transform: scale(1.1) rotate(10deg);
+                color: #007BFF;
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1) rotate(-10deg);
+                color: #FF5733;
+            }
+            75% {
+                opacity: 0.7;
+                transform: scale(1.05) rotate(5deg);
+                color: #28B463;
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+                color: #333;
+            }
+        }
+
+        /* Hover Effect for Links */
+        @keyframes hoverEffect {
+            0%, 100% {
+                color: #007BFF;
+            }
+            50% {
+                color: #FF5733;
+            }
+        }
+

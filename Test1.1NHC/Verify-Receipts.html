@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt Verification - NHC</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .verification-form {
+            background-color: white;
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .form-group input {
+            width: calc(100% - 24px);
+            margin-top: 8px;
+        }
+
+        .form-group button {
+            background-color: #28a745;
+            color: white;
+            font-size: 1.1em;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-group button:hover {
+            background-color: #218838;
+        }
+
+        .verification-result {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .verification-result p {
+            font-size: 1.2em;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+<div class="verification-form">
+    <h2>Receipt Verification</h2>
+    <form id="receipt-form">
+        <!-- Receipt Number -->
+        <div class="form-group">
+            <label for="receipt-number">Receipt Number</label>
+            <input type="text" id="receipt-number" name="receipt-number" required placeholder="Enter Receipt Number">
+        </div>
+
+        <!-- Receipt Date -->
+        <div class="form-group">
+            <label for="receipt-date">Receipt Date</label>
+            <input type="date" id="receipt-date" name="receipt-date" required>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+            <button type="submit">Verify Receipt</button>
+        </div>
+    </form>
+</div>
+
+<div class="verification-result" id="result">
+    <p id="result-message"></p>
+</div>
+
+<footer>
+    <p>© 2024 National Housing Corporation. All rights reserved.</p>
+</footer>
+
+<script>
+    // Simulating a list of valid receipts in the system
+    const validReceipts = [
+        { receiptNumber: "12345", date: "2024-11-01" },
+        { receiptNumber: "67890", date: "2024-11-05" },
+        { receiptNumber: "54321", date: "2024-11-10" }
+    ];
+
+    const receiptForm = document.getElementById('receipt-form');
+    const resultDiv = document.getElementById('result');
+    const resultMessage = document.getElementById('result-message');
+
+    receiptForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Get the input values
+        const receiptNumber = document.getElementById('receipt-number').value;
+        const receiptDate = document.getElementById('receipt-date').value;
+
+        // Check if the receipt exists in the validReceipts list
+        const isValid = validReceipts.some(receipt => 
+            receipt.receiptNumber === receiptNumber && receipt.date === receiptDate
+        );
+
+        // Display result
+        if (isValid) {
+            resultMessage.textContent = "Receipt Verified Successfully!";
+            resultDiv.style.backgroundColor = "#28a745"; // Green for success
+        } else {
+            resultMessage.textContent = "Invalid Receipt Number or Date.";
+            resultDiv.style.backgroundColor = "#dc3545"; // Red for error
+        }
+
+        resultDiv.style.display = "block";
+    });
+</script>
+
+</body>
+</html>

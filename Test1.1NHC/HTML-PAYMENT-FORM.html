@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make a Payment - NHC</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        header {
+            position: relative;
+            width: 100%;
+            height: 200px; /* Reduced height for a thinner video */
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Video Background */
+        header video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        header h1 {
+            position: relative;
+            font-size: 2em;
+            color: white;
+            text-align: center;
+            padding-top: 60px; /* Adjusted padding for vertical centering */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Optional: add text shadow for better visibility */
+        }
+
+        header p {
+            position: relative;
+            font-size: 1.2em;
+            color: white;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Optional: add text shadow for better visibility */
+        }
+
+        .payment-form {
+            background-color: white;
+            padding: 30px;
+            width: 100%;
+            max-width: 1200px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .form-group select, .form-group input[type="text"], .form-group input[type="number"] {
+            width: calc(100% - 24px);
+            margin-top: 8px;
+        }
+
+        .form-group input[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            font-size: 1.1em;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-group input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .payment-summary {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-summary h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .payment-summary p {
+            font-size: 1.1em;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <!-- Background Video -->
+    <video autoplay loop muted>
+        <source src="NHC Renovations(720P_HD).mp4" type="video/mp4">
+        <!-- Fallback text if video is not supported -->
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Header Text -->
+    <h1>National Housing Corporation Payment Portal</h1>
+    <p>Make payments for your housing services easily.</p>
+</header>
+
+<div class="payment-form">
+    <h2>Make a Payment</h2>
+    <form id="payment-form">
+        <!-- Select Service -->
+        <div class="form-group">
+            <label for="service">Select Service</label>
+            <select id="service" name="service" required>
+                <option value="rent">Rent Payment</option>
+                <option value="mortgage">Mortgage Payment</option>
+                <option value="fee">Application Fee</option>
+                <option value="maintenance">Maintenance Fee</option>
+                <option value="land-lease">Land Lease Payment</option>
+            </select>
+        </div>
+
+        <!-- Amount -->
+        <div class="form-group">
+            <label for="amount">Amount (in Kina)</label>
+            <input type="number" id="amount" name="amount" required placeholder="Enter Amount">
+        </div>
+
+        <!-- Customer Information -->
+        <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required placeholder="Enter your full name">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email">
+        </div>
+
+        <!-- ID Type -->
+        <div class="form-group">
+            <label for="id-type">Select ID Type</label>
+            <select id="id-type" name="id-type" required>
+                <option value="none">None</option>
+                <option value="national-id">National ID</option>
+                <option value="passport">Passport</option>
+                <option value="drivers-license">Driver's License</option>
+                <option value="voters-id">Voter's ID</option>
+            </select>
+        </div>
+
+        <!-- ID Number -->
+        <div class="form-group">
+            <label for="id-number">ID Number</label>
+            <input type="text" id="id-number" name="id-number" placeholder="Enter your ID number">
+        </div>
+
+        <!-- Payment Method -->
+        <div class="form-group">
+            <label for="payment-method">Payment Method</label>
+            <select id="payment-method" name="payment-method" required>
+                <option value="credit-card">Credit/Debit Card</option>
+                <option value="paypal">PayPal</option>
+                <option value="bank-transfer">Bank Transfer</option>
+            </select>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+            <input type="submit" value="Submit Payment">
+        </div>
+    </form>
+</div>
+
+<div class="payment-summary">
+    <h2>Payment Summary</h2>
+    <p><strong>Service Selected:</strong> <span id="selected-service">Rent Payment</span></p>
+    <p><strong>Amount:</strong> <span id="amount-summary">K0.00</span></p>
+    <p><strong>Name:</strong> <span id="name-summary">John Doe</span></p>
+    <p><strong>Email:</strong> <span id="email-summary">example@email.com</span></p>
+    <p><strong>Payment Method:</strong> <span id="payment-method-summary">Credit/Debit Card</span></p>
+    <p><strong>ID Type:</strong> <span id="id-type-summary">None</span></p>
+    <p><strong>ID Number:</strong> <span id="id-number-summary">0000123</span></p>
+</div>
+
+<footer>
+    <p>© 2024 National Housing Corporation. All rights reserved.</p>
+</footer>
+
+<script>
+    const paymentForm = document.getElementById('payment-form');
+
+    paymentForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Get user input
+        const service = document.getElementById('service').value;
+        const amount = document.getElementById('amount').value;
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const paymentMethod = document.getElementById('payment-method').value;
+        const idType = document.getElementById('id-type').value;
+        const idNumber = document.getElementById('id-number').value;
+
+        // Update summary
+        document.getElementById('selected-service').textContent = service.charAt(0).toUpperCase() + service.slice(1);
+        document.getElementById('amount-summary').textContent = `KK${amount}`;
+        document.getElementById('name-summary').textContent = name;
+        document.getElementById('email-summary').textContent = email;
+        document.getElementById('payment-method-summary').textContent = paymentMethod.charAt(0).toUpperCase() + paymentMethod.slice(1);
+        document.getElementById('id-type-summary').textContent = idType.charAt(0).toUpperCase() + idType.slice(1);
+        document.getElementById('id-number-summary').textContent = idNumber || 'N/A';
+
+        // Simulate payment submission (this is where you'd integrate with a payment API)
+        alert("Payment Submitted! Please follow the steps to complete your transaction.");
+    });
+</script>
+
+</body>
+</html>

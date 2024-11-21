@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Data Analysis</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #007BFF;
+            margin-bottom: 10px;
+        }
+
+        /* Filter Section */
+        .filter {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter label {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .filter select {
+            padding: 8px 12px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stats div {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats div h3 {
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .stats div span {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #007BFF;
+        }
+
+        /* Table Section */
+        .table-container {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .status {
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .status.available {
+            background-color: #e6f4ea;
+            color: #28a745;
+        }
+
+        .status.pending {
+            background-color: #fff4e5;
+            color: #ffc107;
+        }
+
+        .status.sold {
+            background-color: #f8d7da;
+            color: #dc3545;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            table, th, td {
+                font-size: 0.9rem;
+            }
+
+            .filter, .stats div {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .filter select {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Page Header -->
+        <h1>🏠 Property Data Dashboard</h1>
+
+        <!-- Filter Section -->
+        <div class="filter">
+            <label for="statusFilter">Filter Properties by Status:</label>
+            <select id="statusFilter">
+                <option value="all">All Properties</option>
+                <option value="available">Available</option>
+                <option value="pending">Pending</option>
+                <option value="sold">Sold</option>
+            </select>
+        </div>
+
+        <!-- Statistics Section -->
+        <div class="stats">
+            <div>
+                <h3>Total Properties</h3>
+                <span id="totalProperties">0</span>
+            </div>
+            <div>
+                <h3>Total Value</h3>
+                <span id="totalValue">K0</span>
+            </div>
+            <div>
+                <h3>Average Price</h3>
+                <span id="averagePrice">K0</span>
+            </div>
+            <div>
+                <h3>Available</h3>
+                <span id="availableCount">0</span>
+            </div>
+            <div>
+                <h3>Pending</h3>
+                <span id="pendingCount">0</span>
+            </div>
+            <div>
+                <h3>Sold</h3>
+                <span id="soldCount">0</span>
+            </div>
+        </div>
+
+        <!-- Property Table Section -->
+        <div class="table-container">
+            <table id="propertyTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Address</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be dynamically added -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const properties = [
+            { id: "001", address: "142 Dabara St.", price: "K1,200,000", status: "Available" },
+            { id: "002", address: "456 Sunset Blvd", price: "K850,000", status: "Pending" },
+            { id: "003", address: "789 Maple Street", price: "K2,300,000", status: "Sold" },
+        { id: "002", address: "456 Sunset Blvd", price: "K850,000", status: "Pending" },
+        { id: "003", address: "789 Maple Street", price: "K2,300,000", status: "Sold" },
+        { id: "004", address: "123 Ocean Drive", price: "K1,100,000", status: "Available" },
+        { id: "005", address: "456 Greenfield Road", price: "K750,000", status: "Pending" },
+        { id: "006", address: "789 River Park", price: "K2,800,000", status: "Sold" },
+        { id: "007", address: "321 Mountain View", price: "K1,400,000", status: "Available" },
+        { id: "008", address: "567 Sunset Ridge", price: "K900,000", status: "Pending" },
+        { id: "009", address: "888 Highland Ave", price: "K3,000,000", status: "Sold" },
+        { id: "010", address: "345 Pineapple Lane", price: "K1,500,000", status: "Available" },
+        { id: "011", address: "742 Evergreen Terrace", price: "K1,100,000", status: "Available" },
+        { id: "012", address: "444 Oakwood Drive", price: "K700,000", status: "Pending" },
+        { id: "013", address: "22 Baker Street", price: "K2,900,000", status: "Sold" },
+        { id: "014", address: "11 Downing Street", price: "K950,000", status: "Pending" },
+        { id: "015", address: "678 Forest Avenue", price: "K3,500,000", status: "Sold" },
+        { id: "016", address: "99 Elm Street", price: "K2,000,000", status: "Available" },
+        { id: "017", address: "123 Birchwood Lane", price: "K850,000", status: "Pending" },
+        { id: "018", address: "77 Ash Grove", price: "K2,450,000", status: "Available" },
+        { id: "019", address: "55 Willow Way", price: "K1,750,000", status: "Sold" },
+        { id: "020", address: "89 Maplewood Drive", price: "K1,200,000", status: "Available" },
+        { id: "021", address: "12 Holly Street", price: "K2,100,000", status: "Pending" },
+        { id: "022", address: "33 Spruce Terrace", price: "K900,000", status: "Available" },
+        { id: "023", address: "90 Riverbend Road", price: "K1,700,000", status: "Sold" },
+        { id: "024", address: "8 Palm Drive", price: "K3,800,000", status: "Available" },
+        { id: "025", address: "19 Sunset Boulevard", price: "K600,000", status: "Pending" },
+        { id: "026", address: "300 Ocean Avenue", price: "K2,500,000", status: "Sold" },
+        { id: "027", address: "50 Bayview Drive", price: "K1,800,000", status: "Available" },
+        { id: "028", address: "70 Redwood Circle", price: "K750,000", status: "Pending" },
+        { id: "029", address: "11 Sapphire Lane", price: "K2,700,000", status: "Sold" },
+        { id: "030", address: "22 Pearl Street", price: "K3,100,000", status: "Available" },
+        { id: "031", address: "15 Coral Avenue", price: "K950,000", status: "Pending" },
+        { id: "032", address: "18 Crystal Court", price: "K1,500,000", status: "Available" },
+        { id: "033", address: "9 Diamond Lane", price: "K2,800,000", status: "Sold" },
+        { id: "034", address: "77 Ruby Crescent", price: "K1,200,000", status: "Available" },
+        { id: "035", address: "40 Emerald Terrace", price: "K3,300,000", status: "Pending" },
+        { id: "036", address: "99 Opal Drive", price: "K1,800,000", status: "Sold" },
+        { id: "037", address: "55 Garnet Road", price: "K2,200,000", status: "Available" },
+        { id: "038", address: "44 Topaz Avenue", price: "K850,000", status: "Pending" },
+        { id: "039", address: "10 Amber Lane", price: "K2,900,000", status: "Sold" },
+        { id: "040", address: "23 Quartz Circle", price: "K3,200,000", status: "Available" },
+        { id: "041", address: "35 Moonstone Drive", price: "K900,000", status: "Pending" },
+        { id: "042", address: "18 Onyx Avenue", price: "K1,400,000", status: "Available" },
+        { id: "043", address: "45 Sapphire Lane", price: "K2,500,000", status: "Sold" },
+        { id: "044", address: "88 Amberwood Court", price: "K3,400,000", status: "Available" },
+        { id: "045", address: "70 Sunrise Avenue", price: "K1,700,000", status: "Pending" },
+        { id: "046", address: "12 Moonlight Drive", price: "K950,000", status: "Available" },
+        { id: "047", address: "99 Crystal Way", price: "K1,850,000", status: "Sold" },
+        { id: "048", address: "21 Pearl Court", price: "K2,300,000", status: "Available" },
+        { id: "049", address: "66 Coral Road", price: "K800,000", status: "Pending" },
+        { id: "050", address: "78 Sapphire Boulevard", price: "K3,000,000", status: "Sold" }
+            // Add more properties
+        ];
+
+        const tableBody = document.querySelector('#propertyTable tbody');
+        const statusFilter = document.getElementById('statusFilter');
+
+        function populateTable(filter = "all") {
+            tableBody.innerHTML = "";
+            const filteredProperties = properties.filter(({ status }) =>
+                filter === "all" || status.toLowerCase() === filter
+            );
+
+            filteredProperties.forEach(({ id, address, price, status }) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${id}</td>
+                    <td>${address}</td>
+                    <td>${price}</td>
+                    <td><span class="status ${status.toLowerCase()}">${status}</span></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function analyzeData() {
+            let totalValue = 0, available = 0, pending = 0, sold = 0;
+
+            properties.forEach(({ price, status }) => {
+                const value = parseInt(price.replace(/[^\d]/g, ""));
+                totalValue += value;
+
+                if (status.toLowerCase() === "available") available++;
+                if (status.toLowerCase() === "pending") pending++;
+                if (status.toLowerCase() === "sold") sold++;
+            });
+
+            document.getElementById('totalProperties').textContent = properties.length;
+            document.getElementById('totalValue').textContent = `K${totalValue.toLocaleString()}`;
+            document.getElementById('averagePrice').textContent = `K${(totalValue / properties.length).toLocaleString()}`;
+            document.getElementById('availableCount').textContent = available;
+            document.getElementById('pendingCount').textContent = pending;
+            document.getElementById('soldCount').textContent = sold;
+        }
+
+        statusFilter.addEventListener('change', (e) => {
+            populateTable(e.target.value);
+        });
+
+        window.onload = function() {
+            populateTable();
+            analyzeData();
+        };
+    </script>
+</body>
+</html>

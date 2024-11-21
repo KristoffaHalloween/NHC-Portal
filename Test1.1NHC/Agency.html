@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agency Portal</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            background: url('agency-background1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            animation: backgroundAnimation 15s infinite alternate;
+        }
+
+        /* Background Animation */
+        @keyframes backgroundAnimation {
+            0% {
+                background: url('HD.jpg') no-repeat center center fixed;
+                background-size: cover;
+            }
+            50% {
+                background: url('Island.jpg') no-repeat center center fixed;
+                background-size: cover;
+            }
+            100% {
+                background: url('Canoe.jpg') no-repeat center center fixed;
+                background-size: cover;
+            }
+        }
+
+        /* Logo Styling */
+        .logo {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            width: 150px;
+            margin: 20px;
+            cursor: pointer;
+            animation: initialBounce 2s infinite alternate;
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+
+        .logo:hover {
+            transform: rotate(360deg) scale(1.2);
+            filter: drop-shadow(0 0 20px #ff7e5f);
+        }
+
+        @keyframes initialBounce {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* Container */
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+            animation: floatIn 3s ease-out;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin: 0;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        p {
+            font-size: 1.5em;
+            margin-top: 20px;
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        .agency-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            animation: scaleIn 1.5s ease-out;
+        }
+
+        .agency-actions a {
+            text-decoration: none;
+            color: #fff;
+            background: #FF7E5F;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .agency-actions a:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .nav-buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            color: #333;
+            background: #E6E6FA;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .nav-buttons a:hover {
+            background: #D1C6E7;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes floatIn {
+            0% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        #agencyChart {
+            width: 100%;
+            height: 400px;
+            display: none;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body>
+    <!-- Logo -->
+    <img src="Logo.jpg" alt="Agency Logo" class="logo">
+
+    <div class="container">
+        <h1>E-Receipting Agency</h1>
+        <p>Use this application to administer the E-Receipting system for the Agency.</p>
+        <div class="agency-actions">
+            <!-- Link to Verify-Receipts.html -->
+            <a href="Verify-Receipts.html">Verify receipts</a>
+            <!-- Link to Change-Receipt-Status.html -->
+            <a href="Receipt-Status.html">Change receipt status</a>
+            <!-- Link to Track-Receipts.html -->
+            <a href="Track-Receipts.html">Track receipts</a>
+            <!-- Link to Property-Dashboard-test.html -->
+            <a href="Property-Dashboard-test.html">Generate Reports</a>
+        </div>
+        <div class="nav-buttons">
+            <a href="index.html">Back to previous Page</a>
+        </div>
+    </div>
+
+    <div id="agencyChart"></div>
+
+    <script>
+        function showReport() {
+            document.getElementById("agencyChart").style.display = "block";
+            renderChart();
+        }
+
+        function renderChart() {
+            var optionsAgency = {
+                chart: {
+                    type: 'line',
+                    height: 350
+                },
+                series: [{
+                    name: 'Revenue',
+                    data: [100, 200, 150, 180, 220, 250, 300]
+                }],
+                xaxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']
+                },
+                title: {
+                    text: 'Agency Revenue Data',
+                    align: 'center'
+                }
+            };
+
+            var chartAgency = new ApexCharts(document.querySelector("#agencyChart"), optionsAgency);
+            chartAgency.render();
+        }
+    </script>
+</body>
+</html>

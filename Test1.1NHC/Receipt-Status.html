@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Receipt Status</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #333;
+        }
+
+        /* Container */
+        .container {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.8); /* Dark background with opacity */
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .status-form {
+            margin-top: 20px;
+        }
+
+        .status-form select, .status-form input[type="text"] {
+            padding: 10px;
+            margin: 10px;
+            width: 250px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .status-form button {
+            padding: 10px 20px;
+            background-color: #FF7E5F;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+        }
+
+        .status-form button:hover {
+            background-color: #ff5733;
+        }
+
+        .nav-buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            color: #333;
+            background: #E6E6FA;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .nav-buttons a:hover {
+            background: #D1C6E7;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Change Receipt Status</h1>
+        <p>Update the status of a receipt below:</p>
+
+        <!-- Receipt Status Form -->
+        <div class="status-form">
+            <label for="receiptId">Receipt ID:</label>
+            <input type="text" id="receiptId" placeholder="Enter Receipt ID" required>
+
+            <label for="status">Status:</label>
+            <select id="status" required>
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Under Review">Under Review</option>
+            </select>
+
+            <button onclick="changeStatus()">Change Status</button>
+        </div>
+
+        <!-- Navigation buttons -->
+        <div class="nav-buttons">
+            <a href="index.html">Back to Dashboard</a>
+            <a href="Property-Dashboard-test.html">Generate Reports</a>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle the status change
+        function changeStatus() {
+            const receiptId = document.getElementById("receiptId").value;
+            const status = document.getElementById("status").value;
+
+            if (receiptId === "") {
+                alert("Please enter a valid Receipt ID.");
+                return;
+            }
+
+            alert("Receipt ID " + receiptId + " status has been changed to " + status + ".");
+            
+            // Here you could add logic to update the receipt status in a database or send data to a server
+            // For now, we just show an alert as a placeholder.
+        }
+    </script>
+</body>
+</html>

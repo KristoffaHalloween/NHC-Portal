@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Receipts</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        .table-container {
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #FF7E5F;
+            color: white;
+            cursor: pointer;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .nav-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            color: #fff;
+            background: #444;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .nav-buttons a:hover {
+            background: #666;
+        }
+    </style>
+    <script>
+        // JavaScript for searching and sorting table
+        function searchTable() {
+            const input = document.getElementById("searchInput").value.toUpperCase();
+            const table = document.getElementById("receiptsTable");
+            const rows = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < rows.length; i++) {
+                let cells = rows[i].getElementsByTagName("td");
+                let rowText = "";
+                for (let j = 0; j < cells.length; j++) {
+                    rowText += cells[j].innerText.toUpperCase();
+                }
+                rows[i].style.display = rowText.includes(input) ? "" : "none";
+            }
+        }
+
+        function sortTable(columnIndex) {
+            const table = document.getElementById("receiptsTable");
+            const rows = Array.from(table.rows).slice(1); // Exclude header row
+            const isAscending = table.dataset.sortOrder === "asc";
+            const newRows = rows.sort((a, b) => {
+                const aText = a.cells[columnIndex].innerText.toUpperCase();
+                const bText = b.cells[columnIndex].innerText.toUpperCase();
+                return isAscending ? aText.localeCompare(bText) : bText.localeCompare(aText);
+            });
+            table.tBodies[0].append(...newRows);
+            table.dataset.sortOrder = isAscending ? "desc" : "asc";
+        }
+    </script>
+</head>
+<body>
+    <h1>View Receipts</h1>
+    <div class="table-container">
+        <div class="search-bar">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search Receipts..."
+                onkeyup="searchTable()"
+            />
+        </div>
+        <table id="receiptsTable" data-sort-order="asc">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Receipt ID</th>
+                    <th onclick="sortTable(1)">Date</th>
+                    <th onclick="sortTable(2)">Amount</th>
+                    <th onclick="sortTable(3)">Status</th>
+                    <th onclick="sortTable(4)">Customer Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>2024-11-20</td>
+                    <td>K100</td>
+                    <td>Paid</td>
+                    <td>John Doe</td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>2024-11-19</td>
+                    <td>K250</td>
+                    <td>Pending</td>
+                    <td>Jane Smith</td>
+                </tr>
+                <tr>
+                    <td>003</td>
+                    <td>2024-11-18</td>
+                    <td>K500</td>
+                    <td>Paid</td>
+                    <td>Emily Davis</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </div>
+    <div class="nav-buttons">
+        <a href="index.html">Back to Home</a>
+        <a href="Admin-Portal.html">Admin Portal</a>
+    </div>
+</body>
+</html>

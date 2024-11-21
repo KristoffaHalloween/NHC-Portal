@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Data Analysis with Graphs</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #007BFF;
+        }
+
+        /* Filter Section */
+        .filter {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter label {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .filter select {
+            padding: 8px 12px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        /* Graph Section */
+        .graphs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .graph {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        canvas {
+            width: 100% !important;
+            height: 300px !important;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .graphs {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Page Header -->
+        <h1>🏠 Property Data Dashboard</h1>
+
+        <!-- Filter Section -->
+        <div class="filter">
+            <label for="statusFilter">Filter Properties by Status:</label>
+            <select id="statusFilter">
+                <option value="all">All Properties</option>
+                <option value="available">Available</option>
+                <option value="pending">Pending</option>
+                <option value="sold">Sold</option>
+            </select>
+        </div>
+
+        <!-- Graph Section -->
+        <div class="graphs">
+            <div class="graph">
+                <h3>Status Distribution</h3>
+                <canvas id="statusChart"></canvas>
+            </div>
+            <div class="graph">
+                <h3>Price Distribution</h3>
+                <canvas id="priceChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const properties = [
+            { id: "001", address: "142 Dabara St.", price: 1200000, status: "Available" },
+            { id: "002", address: "456 Sunset Blvd", price: 850000, status: "Pending" },
+            { id: "003", address: "789 Maple Street", price: 2300000, status: "Sold" },
+            { id: "004", address: "101 Pine St.", price: 1750000, status: "Available" },
+            { id: "005", address: "202 Oak St.", price: 950000, status: "Pending" },
+        ];
+
+        const statusFilter = document.getElementById('statusFilter');
+
+        function updateGraphs(filter = "all") {
+            const filteredProperties = properties.filter(({ status }) =>
+                filter === "all" || status.toLowerCase() === filter
+            );
+
+            const statusCounts = { Available: 0, Pending: 0, Sold: 0 };
+            const priceData = [];
+
+            filteredProperties.forEach(({ status, price }) => {
+                statusCounts[status]++;
+                priceData.push(price);
+            });
+
+            // Update Status Chart
+            statusChart.data.datasets[0].data = Object.values(statusCounts);
+            statusChart.update();
+
+            // Update Price Chart
+            priceChart.data.labels = filteredProperties.map(({ address }) => address);
+            priceChart.data.datasets[0].data = priceData;
+            priceChart.update();
+        }
+
+        // Initialize Charts
+        const statusChart = new Chart(document.getElementById('statusChart'), {
+            type: 'pie',
+            data: {
+                labels: ["Available", "Pending", "Sold"],
+                datasets: [{
+                    data: [0, 0, 0],
+                    backgroundColor: ["#28a745", "#ffc107", "#dc3545"],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        const priceChart = new Chart(document.getElementById('priceChart'), {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Price (K)',
+                    data: [],
+                    backgroundColor: '#007BFF',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // Handle Filter Change
+        statusFilter.addEventListener('change', (e) => {
+            updateGraphs(e.target.value);
+        });
+
+        // Initial Graph Population
+        updateGraphs();
+    </script>
+</body>
+</html>
